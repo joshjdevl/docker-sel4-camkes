@@ -10,7 +10,7 @@ build: Dockerfile
 	$(DOCKER) build -t $(IMAGE_NAME) .
 
 pull:
-	$(DOCKER) pull $(MAINTAINER)/$(IMAGE_NAME):($TAG_NAME)
+	$(DOCKER) pull $(MAINTAINER)/$(IMAGE_NAME):$(TAG_NAME)
 	$(DOCKER) tag $(MAINTAINER)/$(IMAGE_NAME):$(TAG_NAME) $(IMAGE_NAME)
 
 create:
@@ -26,3 +26,6 @@ create_local:
 
 start:
 	$(DOCKER) start -ai $(CONTAINER_NAME)
+
+rm:
+	$(DOCKER) rm $(CONTAINER_NAME)
