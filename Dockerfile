@@ -5,6 +5,10 @@ RUN apt-get update && apt-get -y install python-software-properties software-pro
 add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
 apt-get update
 
+RUN add-apt-repository ppa:saiarcot895/myppa && \
+apt-get update && \
+apt-get -y install apt-fast
+
 RUN apt-fast update
 
 RUN apt-fast install -y git phablet-tools
