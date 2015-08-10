@@ -50,14 +50,14 @@ RUN sudo apt-get update
 RUN sudo apt-fast install -y gcc-arm-linux-gnueabi
 RUN sudo apt-fast install -y qemu-system-arm qemu-system-x86
 
-RUN cd $HOME/seL4test
+WORKDIR $HOME/seL4test
 RUN git config --global color.ui false
-#RUN $HOME/bin/repo init -u https://github.com/seL4/sel4test-manifest.git
-#RUN $HOME/bin/repo sync
+RUN $HOME/bin/repo init -u https://github.com/seL4/sel4test-manifest.git
+RUN $HOME/bin/repo sync
 
 #Build
-#RUN  make ia32_simulation_release_xml_defconfig
-#RUN make
+RUN make ia32_simulation_release_xml_defconfig
+RUN make
 #RUN make simulate-ia32
 
 CMD tail -f /dev/null
