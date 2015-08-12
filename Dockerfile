@@ -60,4 +60,15 @@ RUN make ia32_simulation_release_xml_defconfig
 RUN make
 #RUN make simulate-ia32
 
+#CAMKES
+#http://sel4.systems/CAmkES/GettingStarted.pml
+RUN mkdir $HOME/camkes-project
+WORKDIR $HOME/camkes-project
+RUN $HOME/bin/repo init -u https://github.com/seL4/camkes-manifest.git
+RUN $HOME/bin/repo sync
+
+RUN make arm_simple_defconfig
+RUN make silentoldconfig
+RUN make
+
 CMD tail -f /dev/null
