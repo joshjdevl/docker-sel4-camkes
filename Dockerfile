@@ -68,7 +68,7 @@ RUN sudo apt-fast -qq install -y build-essential lib32z1 lib32ncurses5 lib32bz2-
 
 WORKDIR /tmp
 RUN sudo mkdir -p /opt/local
-RUN wget --non-verbose https://sourcery.mentor.com/public/gnu_toolchain/arm-none-eabi/arm-2013.11-24-arm-none-eabi-i686-pc-linux-gnu.tar.bz2
+RUN wget https://sourcery.mentor.com/public/gnu_toolchain/arm-none-eabi/arm-2013.11-24-arm-none-eabi-i686-pc-linux-gnu.tar.bz2
 RUN tar xf arm-2013.11-24-arm-none-eabi-i686-pc-linux-gnu.tar.bz2
 RUN sudo mv arm-2013.11 /opt/local/
 
