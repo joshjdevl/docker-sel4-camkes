@@ -1,17 +1,17 @@
 FROM ubuntu:14.04
 MAINTAINER <joshjdevl@gmail.com>
 
-RUN apt-get update && apt-get -y install python-software-properties software-properties-common && \
+RUN apt-get -qq update && apt-get -qq -y install python-software-properties software-properties-common && \
 add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
-apt-get update
+apt-get -qq update
 
 RUN add-apt-repository ppa:saiarcot895/myppa && \
-apt-get update && \
-apt-get -y install apt-fast
+apt-get -qq update && \
+apt-get -qq -y install apt-fast -qq
 
-RUN apt-fast update
+RUN apt-fast -qq update
 
-RUN apt-fast install -y git phablet-tools
+RUN apt-fast -qq install -y git phablet-tools
 RUN git config --global user.email "<email>"
 
 #http://sel4.systems/Download/
@@ -21,7 +21,7 @@ RUN mkdir -p $HOME/bin
 RUN curl https://storage.googleapis.com/git-repo-downloads/repo > $HOME/bin/repo
 RUN chmod a+x $HOME/bin/repo
 
-RUN sudo apt-fast install -y git python
+RUN sudo apt-fast -qq install -y git python
 
 ENV PATH $HOME/bin:$PATH
 RUN mkdir $HOME/seL4test
@@ -32,23 +32,23 @@ RUN  git config --global user.name "Your Name"
 #RUN $HOME/bin/repo sync
 
 #http://sel4.systems/Download/DebianToolChain.pml
-RUN sudo apt-get update
-RUN sudo apt-fast install -y build-essential realpath libxml2-utils python-tempita
-RUN sudo apt-fast install -y gcc-multilib ccache ncurses-dev
-RUN sudo apt-fast install -y cabal-install ghc libghc-missingh-dev libghc-split-dev 
+RUN sudo apt-get -qq update
+RUN sudo apt-fast -qq install -y build-essential realpath libxml2-utils python-tempita
+RUN sudo apt-fast -qq install -y gcc-multilib ccache ncurses-dev
+RUN sudo apt-fast -qq install -y cabal-install ghc libghc-missingh-dev libghc-split-dev 
 RUN cabal update
 RUN cabal install data-ordlist
-RUN sudo apt-fast install -y python-pip python-jinja2 python-ply
+RUN sudo apt-fast -qq install -y python-pip python-jinja2 python-ply
 RUN sudo pip install --upgrade pip
 RUN sudo pip install pyelftools
 
 
 #Ubuntu 14.04
-RUN sudo apt-get install python-software-properties
+RUN sudo apt-get -qq install python-software-properties
 RUN sudo add-apt-repository universe
-RUN sudo apt-get update
-RUN sudo apt-fast install -y gcc-arm-linux-gnueabi
-RUN sudo apt-fast install -y qemu-system-arm qemu-system-x86
+RUN sudo apt-get -qq update
+RUN sudo apt-fast -qq install -y gcc-arm-linux-gnueabi
+RUN sudo apt-fast -qq install -y qemu-system-arm qemu-system-x86
 
 WORKDIR $HOME/seL4test
 RUN git config --global color.ui false
@@ -64,7 +64,7 @@ RUN make
 #http://sel4.systems/CAmkES/GettingStarted.pml
 
 #dependencies
-RUN sudo apt-fast install -y build-essential lib32z1 lib32ncurses5 lib32bz2-1.0 python python-pip python-tempita cabal-install realpath libxml2-utils qemu git python-jinja2 python-ply
+RUN sudo apt-fast -qq install -y build-essential lib32z1 lib32ncurses5 lib32bz2-1.0 python python-pip python-tempita cabal-install realpath libxml2-utils qemu git python-jinja2 python-ply
 
 WORKDIR /tmp
 RUN sudo mkdir -p /opt/local
@@ -85,6 +85,6 @@ RUN $HOME/bin/repo sync
 
 RUN make arm_simple_defconfig
 RUN make silentoldconfig
-RUN make
+#RUN make
 
 CMD tail -f /dev/null
