@@ -85,6 +85,6 @@ RUN $HOME/bin/repo sync
 
 RUN make arm_simple_defconfig
 RUN make silentoldconfig
-#RUN make
+RUN make
 
 CMD tail -f /dev/null
