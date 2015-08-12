@@ -18,7 +18,7 @@ RUN git config --global user.email "<email>"
 ENV HOME /home/root
 
 RUN mkdir -p $HOME/bin
-RUN curl https://storage.googleapis.com/git-repo-downloads/repo > $HOME/bin/repo
+RUN curl --silent https://storage.googleapis.com/git-repo-downloads/repo > $HOME/bin/repo
 RUN chmod a+x $HOME/bin/repo
 
 RUN sudo apt-fast -qq install -y git python
@@ -56,8 +56,8 @@ RUN $HOME/bin/repo init -u https://github.com/seL4/sel4test-manifest.git
 RUN $HOME/bin/repo sync
 
 #Build
-RUN make ia32_simulation_release_xml_defconfig
-RUN make
+RUN make --silent ia32_simulation_release_xml_defconfig
+RUN make --silent
 #RUN make simulate-ia32
 
 #CAMKES
@@ -68,7 +68,7 @@ RUN sudo apt-fast -qq install -y build-essential lib32z1 lib32ncurses5 lib32bz2-
 
 WORKDIR /tmp
 RUN sudo mkdir -p /opt/local
-RUN wget https://sourcery.mentor.com/public/gnu_toolchain/arm-none-eabi/arm-2013.11-24-arm-none-eabi-i686-pc-linux-gnu.tar.bz2
+RUN wget --non-verbose https://sourcery.mentor.com/public/gnu_toolchain/arm-none-eabi/arm-2013.11-24-arm-none-eabi-i686-pc-linux-gnu.tar.bz2
 RUN tar xf arm-2013.11-24-arm-none-eabi-i686-pc-linux-gnu.tar.bz2
 RUN sudo mv arm-2013.11 /opt/local/
 
@@ -83,8 +83,8 @@ WORKDIR $HOME/camkes-project
 RUN $HOME/bin/repo init -u https://github.com/seL4/camkes-manifest.git
 RUN $HOME/bin/repo sync
 
-RUN make arm_simple_defconfig
-RUN make silentoldconfig
-RUN make
+RUN make --silent arm_simple_defconfig
+RUN make --silent silentoldconfig
+RUN make --silent
 
 CMD tail -f /dev/null
